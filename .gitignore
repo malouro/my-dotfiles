@@ -1,0 +1,6 @@
+# System stuff
+.DS_store
+thumbs.db
+
+# Hide work related stuff
+*.icims

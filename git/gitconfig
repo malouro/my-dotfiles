@@ -1,0 +1,8 @@
+[core]
+	autocrlf = input
+	ignorecase = false
+[include]
+	path = ~/.gitconfig.aliases
+	path = ~/.gitconfig.user
+[includeif "gitdir:~/Projects/(Work|Test)"]
+	path = ~/.gitconfig.user.icims
