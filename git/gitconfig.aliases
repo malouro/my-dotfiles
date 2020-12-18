@@ -1,0 +1,11 @@
+[alias]
+  cls = log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate
+  bls = branch -a
+  co = checkout
+  undo = reset HEAD~1 --mixed
+  amend = commit -a --amend
+  nuke = !git reset --hard HEAD && git clean -d -f
+  alias = !git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | grep -v --color=always ^'alias '
+  new-branch = "!f() { git checkout -b $1; }; f"
+  nb = !git new-branch
+  prune = !git branch --merged | egrep -v \\"(^\\*|master|develop)\\" | xargs git branch -d
