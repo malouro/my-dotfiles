@@ -6,8 +6,16 @@ A place where I store and sync-up user configuration files (aka: `dotfiles` - th
 
 ## How to use?
 
-Run `dotfiles.sh` to create symlinks to the configuration files here into your `HOME` directory
+Run `install.sh` to create symlinks to the configuration files here into a given directory (like `$HOME`)
 
----
 
-> More to come soon...?
+```sh
+./install.sh $HOME
+```
+
+You can also install just a specific profile or configuration by passing it in as an additional parameter:
+
+```sh
+# Installs zsh configuration into $HOME
+./install.sh $HOME zsh
+```
