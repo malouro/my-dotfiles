@@ -1,12 +1,3 @@
-# PATH
-# ==================================
-export PATH="$PATH:$HOME/.bin:/usr/bin\
-:/Applications/Visual Studio Code.app/Contents/Resources/app/bin\
-:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin\
-:$HOME/.npm/bin:$HOME/.config/npm/global/node_modules/.bin\
-"
-
-
 # zsh & oh-my-zsh
 # ====================================================================
 # Path to your oh-my-zsh installation.
@@ -51,6 +42,9 @@ source $ZSH/oh-my-zsh.sh
 # User name display for terminal
 DEFAULT_USER=$USER$(prompt_context(){})
 
+# zsh-hooks
+autoload -U add-zsh-hook
+
 
 # Aliases
 # ====================================================================
@@ -63,9 +57,17 @@ alias l='ls -CF'
 # Dev environment setups
 # ====================================================================
 
+# PATH
+# ==================================
+export PATH="$PATH:$HOME/.bin:/usr/bin\
+:/Applications/Visual Studio Code.app/Contents/Resources/app/bin\
+:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin\
+:$HOME/.npm/bin:$HOME/.config/npm/global/node_modules/.bin\
+"
+
 # Node
 # (npm, yarn, nvm, etc.)
-
+# ==================================
 # Loads nvm only on first invocation of Node/NPM like command usages
 # Greatly increases shell start up time 
 nvm() {
@@ -96,8 +98,19 @@ yarn() {
   yarn "$@"
 }
 
-# Python
+# If .nvmrc exists; install w/ nvm
+check_nvm() {
+  if [[ -f "$PWD/.nvmrc" && -r "$PWD/.nvmrc" ]]; then
+    nvm use
+  fi
+}
+# Add check_nvm hook for change in directory
+add-zsh-hook chpwd check_nvm
+check_nvm
 
+
+# Python
+# ==================================
 # pyenv
 # Set up pyenv vars
 # Initializes pyenv for shell on startup
