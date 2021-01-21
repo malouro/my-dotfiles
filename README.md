@@ -1,13 +1,10 @@
-# my-dotfiles
-
 ## What is this?
 
-A place where I store and sync-up user configuration files (aka: `dotfiles` - think `~/.bashrc`, etc.)
+A place where I store and sync-up environment configuration files (aka: `dotfiles` - think `~/.bashrc`, etc.)
 
 ## How to use?
 
 Run `install.sh` to create symlinks to the configuration files here into a given directory (like `$HOME`)
-
 
 ```sh
 ./install.sh $HOME
@@ -19,3 +16,5 @@ You can also install just a specific profile or configuration by passing it in a
 # Installs zsh configuration into $HOME
 ./install.sh $HOME zsh
 ```
+
+> TODO: Support multiple profile installation via something similar like above? ie: `install.sh $HOME zsh git bash` etc.
