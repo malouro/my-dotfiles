@@ -2,17 +2,23 @@
 
 set -e -E
 
+
+# Relies on `$profile` var - runs install script from its location
 install_profile() {
 	echo "($profile)"
+
 	HERE_PROFILE="$HERE/$profile"
 	install_location="$HERE_PROFILE/install.sh"
+
 	if [ -f "$install_location" ]; then
 			. "$install_location"
 	else
-		echo "WARNING: Install script for ($profile) not found."
+		echo "WARNING: Install script for ($profile) not found; skipping"
 	fi
 }
 
+
+# Usage prompt:
 if [ "$#" -lt "1" ] || [ "$#" -gt "2" ]; then
 	echo "Usage: install.sh <directory> (<profile>)" >&2
 	printf "\neg:\n\e[1m$\e[0m install.sh \$HOME zsh\n" >&2
@@ -22,6 +28,7 @@ if [ "$#" -lt "1" ] || [ "$#" -gt "2" ]; then
 	exit 1
 fi
 
+
 HERE="$(cd "$(dirname "$0")" && pwd)"
 OUT="$1"
 SL="$HERE/symlink.sh"
@@ -30,16 +37,22 @@ cd "$HERE"
 
 profiles=(
 	git
+	vim
 	zsh
 )
 
 
+# if a specific profile is sent as a parameter
+# then install just that specified profile:
 if [ "$2" != "" ]
 then
 	profile=$2
+
 	echo "Symlinking $profile..."
 	install_profile
 	echo "Done!"
+
+# otherwise, install *all* profiles:
 else
 	echo "Symlinking files..."
 
