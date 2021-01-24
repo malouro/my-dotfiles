@@ -17,4 +17,9 @@ You can also install just a specific profile or configuration by passing it in a
 ./install.sh $HOME zsh
 ```
 
-> TODO: Support multiple profile installation via something similar like above? ie: `install.sh $HOME zsh git bash` etc.
+---
+
+> TODO
+>
+> - [ ] Support multiple, specific profile installations
+>   - eg: `install.sh $HOME zsh git bash`
