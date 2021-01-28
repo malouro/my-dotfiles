@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Kills process running on a given port.
+
+if [ "$#" -ne "1" ]; then
+  echo 'Usage: kill-port <port#>' >&2
+  exit 1
+fi
+
+lsof -i TCP:$1 | grep LISTEN | awk "{print $2}" | xargs kill -9 && echo "Killed process(es) on port#$1";

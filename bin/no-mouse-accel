@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Usage:
+# no-mouse-accel
+
+# Disables mouse acceleration on Mac - it's really annoying. :(
+defaults write .GlobalPreferences com.apple.mouse.scaling -1
