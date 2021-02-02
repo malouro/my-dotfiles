@@ -36,6 +36,7 @@ SL="$HERE/symlink.sh"
 cd "$HERE"
 
 profiles=(
+	bin
 	git
 	vim
 	zsh
