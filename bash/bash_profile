@@ -1,0 +1,74 @@
+#!/bin/bash
+
+### Custom bash profile
+### PATH variable
+
+# Setting PATH for Python 3.6 - The original version is saved in .bash_profile.pysave
+export PATH="$HOME/.bin:/usr/local/bin/git:/usr/local/bin:/usr/bin\
+:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin\
+:$HOME/.npm/bin:$HOME/.config/npm/global/node_modules/.bin\
+:$HOME/.kenv/bin\
+:$PATH
+"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#. $(brew --prefix nvm)/nvm.sh
+
+### Init pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+# This is slow-running, but uncomment if you want
+# eval "$(pyenv init -)"
+
+
+### Terminal colors & style
+# Colors
+BLACK='\[\e[0;30m\]'
+RED='\[\e[1;31m\]'
+BOLDYELLOW='\[\e[1;33m\]'
+GREEN='\[\e[0;32m\]'
+BLUE='\[\e[1;34m\]'
+DARK_BROWN='\[\e[1;33m\]'
+DARK_GRAY='\[\e[1;30m\]' # ?????
+DARK_GRAY_BLINK='\[\e[1;5;30m\]'
+LIGHT_BLUE='\[\e[1;36m\]' # cyan?
+PURPLE='\[\e[1;35m\]'
+NONE='\[\e[0m\]'
+BOLD='\[\e[1m\]'
+BLINK='\[\e[0;5m\]'
+
+# Config
+SHOW_HOST_NAME=false
+HOST_NAME_COLOR=BLUE
+
+# Emojis 😊
+EM_TERMINAL='🖥️ '
+EM_DANGO='🍡 '
+EM_DRUM='🥁 '
+
+parse_git_branch() {
+	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+get_host_name() {
+	if $SHOW_HOST_NAME == true; then
+		echo '${BOLD}@${HOST_NAME_COLOR}\h';
+	else
+		echo '';
+	fi
+}
+
+# Style 1 -- Simple + GIT branch + arrow
+export PS1="${EM_DANGO}${BLUE}\u\$(get_host_name) ${DARK_BROWN}\W${GREEN}\$(parse_git_branch) ${NONE}\n"
+
+
+### Aliases
+# Human readable, indicators and no group names for `ls`
+alias ls='ls -GFh'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'

@@ -35,7 +35,9 @@ SL="$HERE/symlink.sh"
 
 cd "$HERE"
 
+# Add new profiles/dotfile directorys in here:
 profiles=(
+	bash
 	bin
 	git
 	vim
@@ -43,7 +45,7 @@ profiles=(
 )
 
 
-# if a specific profile is sent as a parameter
+# If a specific profile is sent as a parameter,
 # then install just that specified profile:
 if [ "$2" != "" ]
 then

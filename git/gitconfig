@@ -1,6 +1,10 @@
 [core]
 	autocrlf = input
 	ignorecase = false
+[diff]
+	tool = default-difftool
+[difftool "default-difftool"]
+	cmd = code --wait --diff $LOCAL $REMOTE
 [include]
 	path = ~/.gitconfig.aliases
 	path = ~/.gitconfig.user
