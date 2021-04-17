@@ -59,20 +59,25 @@ async function getProjects(parentDir, category) {
 }
 
 const projectMappings = {
-	personal: {
-		name: 'Personal',
-		path: '~/Projects/Personal',
-		description: 'Personal projects from GitHub',
-	},
 	work: {
 		name: 'iCIMS',
 		path: '~/Projects/Work',
 		description: 'Projects for work @ iCIMS'
 	},
+	personal: {
+		name: 'Personal',
+		path: '~/Projects/Personal',
+		description: 'Personal projects from GitHub',
+	},
 	test: {
 		name: 'Testing',
 		path: '~/Projects/Test',
 		description: 'Projects to test on, or with'
+	},
+	learning: {
+		name: 'Learning',
+		path: '~/Projects/Learning',
+		description: 'Tutorials & trainings'
 	}
 }
 
@@ -84,21 +89,24 @@ inquire.prompt([
 		message: 'Choose a flavor of work:',
 		type: 'list',
 		choices: Object.keys(projectMappings),
-		filter: async (category) => {
-			projectsInCategory = await getProjects(
-				projectMappings[category].path,
-				projectMappings[category].name
-			)
-			return category
+		filter: async (chosenCategory) => {
+			// Before moving to next inquiry, we need to get and set
+			// the list of projects available in the chosen category
+			const { path: catPath, name: catName } = projectMappings[chosenCategory]
+			console.log(catPath, catName)
+			projectsInCategory = await getProjects(catPath, catName)
+			return chosenCategory
 		}
 	},
 	{
 		name: 'project',
 		message: 'Pick a project',
 		type: 'list',
-		pageSize: 9,
+		pageSize: 5,
+		// Choices needs to be a function to "wait" for previous answer,
+		// which actually is setting up the `projectsInCategory` for us
 		choices: () => projectsInCategory.map(({ name }) => name),
-		filter: (projectSelection) => projectsInCategory.find(({ name }) => name === projectSelection)
+		filter: (chosenProject) => projectsInCategory.find(({ name }) => name === chosenProject)
 	}
 ]).then(({ project }) => {
 	console.log(`Opening ${project.description} in VS Code...`)
