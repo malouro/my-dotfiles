@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "description": ".",
   "main": "./install.sh",
-	"type": "module",
   "repository": "https://github.com/malouro/my-dotfiles.git",
   "author": "Mike A. Louro <mike.a.louro@gmail.com>",
   "license": "MIT",
