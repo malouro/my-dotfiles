@@ -40,7 +40,9 @@ profiles=(
 	bash
 	bin
 	git
+	node-scripts
 	vim
+	vscode
 	zsh
 )
 

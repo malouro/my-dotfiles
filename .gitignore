@@ -4,3 +4,8 @@ thumbs.db
 
 # Hide work related stuff
 *.icims
+
+# Nodey, Yarny stuff
+**/node_modules/**
+yarn-error.log
+npm-debug.log
