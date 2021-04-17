@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { promisify } from 'util'
 import { exec } from 'child_process'
 import inquire from 'inquirer'
 
@@ -7,16 +8,31 @@ import inquire from 'inquirer'
  * @param {string} dir 
  * @returns {import('node:fs').PathLike[]}
  */
-function ls(dir) {
+async function ls(dir) {
 	let normalizedPath = dir
+	let directories = []
 
 	if (dir.startsWith('~'))
 		normalizedPath = dir.replace('~', process.env.HOME)
 	if (dir.startsWith('./'))
 		normalizedPath = path.join(process.cwd(), dir)
 
-	const directories = fs.readdirSync(normalizedPath)
-		.map((source) =>	path.resolve(normalizedPath, source))
+	const stat = promisify(fs.lstat)
+	const dirStat = await stat(normalizedPath).catch((error) => {
+		if (error && error.code === 'ENOENT') {
+			console.log(`\nDirectory "${dir}", normalized to "${normalizedPath}", doesn't seem to exist.\n\nExiting...`)
+			process.exit(1)
+		}
+		throw error
+	})
+
+	if (!dirStat.isDirectory()) {
+		console.log(`\nPath "${dir}", normalized to "${normalizedPath}", doesn't point to a directory.\n\nExiting...`)
+		process.exit(1)
+	}
+
+	directories = fs.readdirSync(normalizedPath)
+		.map((source) => path.resolve(normalizedPath, source))
 		.filter((source) => fs.lstatSync(source).isDirectory())
 
 	return directories
@@ -33,10 +49,16 @@ function ls(dir) {
  * @returns {Project[]} List of projects to choose from
  */
 async function getProjects(parentDir, category) {
-	const codeDir = ls(parentDir)
+	const codeDirectories = await ls(parentDir)
+
+	if (codeDirectories.length === 0) {
+		console.log(`\nThis directory "${parentDir}" looks empty.\n\nExiting...`)
+		process.exit(1)
+	}
+
 	const choices = []
 
-	for (const dir of codeDir) {
+	for (const dir of codeDirectories) {
 		// Ignore certain files or directories
 		if (/node_modules|\.DS_Store/.test(dir)) continue
 
@@ -56,6 +78,15 @@ async function getProjects(parentDir, category) {
 	}
 
 	return choices
+}
+
+
+async function testRun(pathToTest) {
+	const projects = await getProjects(
+		pathToTest,
+		pathToTest.substr(pathToTest.lastIndexOf(path.sep) + 1)
+	)
+	console.log(projects)
 }
 
 const projectMappings = {
@@ -83,6 +114,7 @@ const projectMappings = {
 
 let projectsInCategory = []
 
+// Execute prompt!
 inquire.prompt([
 	{
 		name: 'category',
@@ -93,10 +125,10 @@ inquire.prompt([
 			// Before moving to next inquiry, we need to get and set
 			// the list of projects available in the chosen category
 			const { path: catPath, name: catName } = projectMappings[chosenCategory]
-			console.log(catPath, catName)
 			projectsInCategory = await getProjects(catPath, catName)
 			return chosenCategory
-		}
+		},
+		transformer: (input) => input + 'TEST'
 	},
 	{
 		name: 'project',
