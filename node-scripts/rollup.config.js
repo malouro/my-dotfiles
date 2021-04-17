@@ -1,11 +1,14 @@
+import fs from 'fs'
+import path from 'path'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import { babel } from '@rollup/plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 import json from '@rollup/plugin-json'
 
-const BUILD_DIR = 'dist'
-
+const srcDir = 'src'
+const buildDir = 'dist'
+const scriptList = fs.readFileSync(path.join(__dirname, './script-list'), 'utf-8').split('\n')
 const plugins = [
 	resolve({
 		mainFields: ['main', 'module'],
@@ -19,14 +22,12 @@ const plugins = [
 ]
 
 /** @type {import('rollup').RollupOptions} */
-export default [
-	{
-		input: ['open-project.js'],
+export default scriptList
+	.map((scriptName) => ({
+		input: [`${srcDir}/${scriptName}.js`],
 		output: {
-			file: `${BUILD_DIR}/open-project`,
+			file: `${buildDir}/${scriptName}`,
 			format: 'cjs',
 		},
-		plugins,
-		...commonOptions
-	}
-]
+		plugins
+	}))
