@@ -4,6 +4,8 @@ import { babel } from '@rollup/plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 import json from '@rollup/plugin-json'
 
+const BUILD_DIR = 'dist'
+
 const plugins = [
 	resolve({
 		mainFields: ['main', 'module'],
@@ -15,17 +17,13 @@ const plugins = [
 	terser(),
 	json()
 ]
-const commonOptions = {
-	treeshake: true
-}
-
 
 /** @type {import('rollup').RollupOptions} */
 export default [
 	{
 		input: ['open-project.js'],
 		output: {
-			file: '../bin/open-project',
+			file: `${BUILD_DIR}/open-project`,
 			format: 'cjs',
 		},
 		plugins,
