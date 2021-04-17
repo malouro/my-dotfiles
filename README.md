@@ -19,7 +19,7 @@ You can also install just a specific profile or configuration by passing it in a
 
 ### Rebuilding node-scripts
 
-The contents of `./node-scripts/` need to be rebuilt if they're ever changed. By default, running the install script will _not_ run the build scripts for this, but by passing `RUN_BUILD=true` as an environment variable, you can force this to happen.
+The contents of `./node-scripts/` needs to be rebuilt if they're ever changed. By default, running the install script will _not_ run the build scripts for this, but by passing `RUN_BUILD=true` as an environment variable, you can force this to happen.
 
 ```sh
 RUN_BUILD=true ./install.sh $HOME
