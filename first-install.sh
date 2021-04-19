@@ -17,15 +17,27 @@
 node_version="14"     # Env var for version of Node
 nvm_version="0.38.0"  # Env var for version of nvm
 uname_out="$(uname -s)"
-case "${uname_out}" in
-    Linux*)     os_type=Linux;;
-    Darwin*)    os_type=Mac;;
-    CYGWIN*)    os_type=Cygwin;;
-    MINGW*)     os_type=MinGw;;
-    *)          os_type="UNKNOWN:${uname_out}"
-esac
-echo ${machine}
 
+case "${uname_out}" in
+    Linux*)     OS=Linux;;
+    Darwin*)    OS=Mac;;
+    CYGWIN*)    OS=Cygwin;;
+    MINGW*)     OS=MinGw;;
+    *)          OS="UNKNOWN"
+esac
+
+if [ "$OS" == "UNKNOWN" ]; then
+	echo "Error: System \"${uname_out}\" is not supported or recognized."
+	exit 2
+elif [[ "$OS" == "Cygwin" || "$OS" == "MinGw" ]]; then
+	echo "Windows is not supported yet. :("
+	exit 1
+fi
+echo "Detected system type: ${OS} (${uname_out})"
+
+
+# Temporary, for testing
+exit 0
 
 # INSTALL
 # -------------------------------
