@@ -32,4 +32,14 @@ Alternatively, just `cd` into `node-scripts` and run `yarn install && yarn build
 ## TODO?
 
 - [ ] Support multiple, specific profile installations
-  - eg: `install.sh $HOME zsh git bash`
+	- eg: `install.sh $HOME zsh git bash`
+- [ ] Handle pre-existing configs
+	- Offer a solution to (dangerously) remove existing configs with `$HOME`
+		- Needed in case the paths go stale (ie: moving the `my-dotfiles` repo elsewhere, breaking the already existing symlinks)
+		- `rm $OUT/$config` possibly?
+- [ ] Fresh/first install script
+	- This would actually install the needed programs/executables
+	- Installs git, zsh, node, pyenv, etc.
+- [ ] Better way to determine what system is being set up
+	- What is the OS? Is it a work machine? Is it a personal machine? etc.
+	- Windows???
