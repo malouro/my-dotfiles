@@ -11,7 +11,7 @@ install_profile() {
 	install_location="$HERE_PROFILE/install.sh"
 
 	if [ -f "$install_location" ]; then
-			. "$install_location"
+		. "$install_location"
 	else
 		echo "WARNING: Install script for ($profile) not found; skipping"
 	fi
