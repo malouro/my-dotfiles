@@ -52,10 +52,10 @@ check_installed () {
 	if [ -z "$PACKAGE" ]; then
 		return 0
 	fi
-	installed=$(command -v "$PACKAGE")
+
+	installed=$(command -v "$PACKAGE" >/dev/null
 	echo "$installed"
-	if [ -z "${installed}" ]; then
-		echo "\"${PACKAGE}\" not installed; installing..."
+	if [ "${installed}" == "false" ]; then
 		return 1
 	fi
 
@@ -64,7 +64,7 @@ check_installed () {
 }
 
 if [ "$OS" == "Mac" ]; then
-	PACKAGE=wget check_installed || brew upgrade wget || brew install wget
+	PACKGE=wget check_installed || brew upgrade wget || brew install wget
 fi
 
 # -------------------------------
@@ -92,31 +92,27 @@ fi
 
 # node 📦
 if [ "$OS" == "Linux" ]; then
-	if [ PACKAGE=node check_installed -e 1]; then
-		echo "Installing NODE???"
-		curl -fsSL "https://deb.nodesource.com/setup_${NODE_VERSION:-"$node_version_short"}.x" | sudo -E bash -
-		apt install -y nodejs
-	fi
+	PACKAGE=node check_installed || {
+		curl -fsSL "https://deb.nodesource.com/setup_${NODE_VERSION:-"$node_version_short"}.x" | sudo -E bash - && apt install -y nodejs
+	}
 elif [ "$OS" == "Mac" ]; then
 	node_url="https://nodejs.org/dist/latest-v${NODE_VERSION:-"$node_version_short"}.x/node-${node_version_long}.pkg"
 
 	# Running with "sudo" b/c this whole script _shouldn't_ be ran with "sudo",
 	# but this might fail otherwise :(
-	if [ PACKAGE=node check_installed -e 1 ]; then
-		curl "${node_url}" > "$HOME/Downloads/node-latest.pkg"
-		installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
-	fi
+	PACKAGE=node check_installed || {
+		curl "${node_url}" > "$HOME/Downloads/node-latest.pkg";
+		installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/";
+	}
 fi
 
 # yarn 🧶
-if [ PACKAGE=yarn check_installed -e 1 ]; then
-	sudo npm install --global yarn # alternatively: https://classic.yarnpkg.com/en/docs/install/#debian-stable
-fi
+PACKAGE=yarn check_installed || \
+	npm install --global yarn # alternatively: https://classic.yarnpkg.com/en/docs/install/#debian-stable
 
 # nvm 🚛
-if [ PACKAGE=nvm check_installed -e 1 ]; then
+PACKAGE=nvm check_installed || \
 	wget -qO- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION:-nvm_version}/install.sh" | bash
-fi
 
 # python 🐍
 # TODO
