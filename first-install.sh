@@ -54,8 +54,9 @@ check_installed () {
 	fi
 
 	if [ "$PACKAGE" == "nvm" ]; then
-		echo "nvm is weird; skipping lol"
-		echo "(Install this manually if you need it.)"
+		echo "WARNING: nvm installation is not working currently."
+		echo "Run this command manually to install:"
+		echo "wget -qO- \"https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION:-nvm_version}/install.sh\" | bash"
 		return 0
 	fi
 
@@ -90,23 +91,23 @@ nvm_version="0.38.0"
 
 # git & zsh 🐚
 if [ "$OS" == "Linux" ]; then
-	PACKAGE=git check_installed || apt install git
-	PACKAGE=zsh check_installed || apt install zsh
+	PACKAGE=git; check_installed || apt install git
+	PACKAGE=zsh; check_installed || apt install zsh
 elif [ "$OS" == "Mac" ]; then
-	PACKAGE=git check_installed || brew install git
-	PACKAGE=zsh check_installed || brew install zsh
+	PACKAGE=git; check_installed || brew install git
+	PACKAGE=zsh; check_installed || brew install zsh
 fi
 
 # node 📦
-PACKAGE=node
+PACKAGE=nodef
 if [ "$OS" == "Linux" ]; then
 	check_installed || {
 		curl -fsSL "https://deb.nodesource.com/setup_${NODE_VERSION:-"$node_version_short"}.x" | sudo -E bash - && apt install -y nodejs;
 	}
 elif [ "$OS" == "Mac" ]; then
-	node_url="https://nodejs.org/dist/latest-v${NODE_VERSION:-"$node_version_short"}.x/node-${node_version_long}.pkg"
+	node_install_url="https://nodejs.org/dist/latest-v${NODE_VERSION:-"$node_version_short"}.x/node-${node_version_long}.pkg"
 
-	check_installed || { curl "${node_url}" > "$HOME/Downloads/node-latest.pkg" && installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"; }
+	check_installed || { curl "${node_install_url}" > "$HOME/Downloads/node-latest.pkg" && installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"; }
 fi
 
 # yarn 🧶
@@ -117,7 +118,12 @@ check_installed || sudo npm install --global yarn
 # nvm 🚛
 PACKAGE=nvm
 check_installed || {
-	wget -qO- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION:-nvm_version}/install.sh" | bash;
+	echo "\n\nWARNING:\nThe nvm installation should be skipped entirely. (until it's fixed)"
+	echo "This is the block of code that should be reached only when attempting to auto-install nvm."
+	echo "In other words: this block shouldn't have been reached... looks like you've encountered a bug! 🐛"
+	# Command to install nvm
+	# TODO: get this working somehow??
+	# wget -qO- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION:-nvm_version}/install.sh" | bash;
 }
 
 

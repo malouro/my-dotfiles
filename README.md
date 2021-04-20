@@ -42,4 +42,6 @@ Alternatively, just `cd` into `node-scripts` and run `yarn install && yarn build
 	- Installs git, zsh, node, pyenv, etc.
 - [ ] Better way to determine what system is being set up
 	- What is the OS? Is it a work machine? Is it a personal machine? etc.
-	- Windows???
+		- OS is handled in `first-install.sh` - could be leveraged elsewhere
+	- Windows installations? (?!)
+- [ ] Rename `**/install.sh` -> `**/link.sh` and `<root>/first-install.sh` -> `**/install.sh` (per-profile installation; might be more manageable or make more sense?)
