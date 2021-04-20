@@ -52,9 +52,14 @@ check_installed () {
 	if [ -z "$PACKAGE" ]; then
 		return 0
 	fi
-	installed=$(command -v "$PACKAGE")
-	echo "$installed"
-	if [ -z "${installed}" ]; then
+
+	if [ "$PACKAGE" == "nvm" ]; then
+		echo "nvm is weird; skipping lol"
+		echo "(Install this manually if you need it.)"
+		return 0
+	fi
+
+	if ! type "$PACKAGE" > /dev/null; then
 		echo "\"${PACKAGE}\" not installed; installing..."
 		return 1
 	fi
@@ -63,9 +68,10 @@ check_installed () {
 	return 0
 }
 
-if [ "$OS" == "Mac" ]; then
+if [ "$OS" == "Mac" ] && [ -z "$(check_installed)" ]; then
 	PACKAGE=wget check_installed || brew upgrade wget || brew install wget
 fi
+
 
 # -------------------------------
 # CONFIG
@@ -76,6 +82,7 @@ node_version_short=${NODE_VERSION:-"14"}
 node_version_long="$(wget -qO- "https://nodejs.org/dist/latest-v${node_version_short}.x/" | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')"
 # Version of nvm to install
 nvm_version="0.38.0"
+
 
 # -------------------------------
 # INSTALL
@@ -91,32 +98,28 @@ elif [ "$OS" == "Mac" ]; then
 fi
 
 # node 📦
+PACKAGE=node
 if [ "$OS" == "Linux" ]; then
-	if [ PACKAGE=node check_installed -e 1]; then
-		echo "Installing NODE???"
-		curl -fsSL "https://deb.nodesource.com/setup_${NODE_VERSION:-"$node_version_short"}.x" | sudo -E bash -
-		apt install -y nodejs
-	fi
+	check_installed || {
+		curl -fsSL "https://deb.nodesource.com/setup_${NODE_VERSION:-"$node_version_short"}.x" | sudo -E bash - && apt install -y nodejs;
+	}
 elif [ "$OS" == "Mac" ]; then
 	node_url="https://nodejs.org/dist/latest-v${NODE_VERSION:-"$node_version_short"}.x/node-${node_version_long}.pkg"
 
-	# Running with "sudo" b/c this whole script _shouldn't_ be ran with "sudo",
-	# but this might fail otherwise :(
-	if [ PACKAGE=node check_installed -e 1 ]; then
-		curl "${node_url}" > "$HOME/Downloads/node-latest.pkg"
-		installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
-	fi
+	check_installed || { curl "${node_url}" > "$HOME/Downloads/node-latest.pkg" && installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"; }
 fi
 
 # yarn 🧶
-if [ PACKAGE=yarn check_installed -e 1 ]; then
-	sudo npm install --global yarn # alternatively: https://classic.yarnpkg.com/en/docs/install/#debian-stable
-fi
+PACKAGE=yarn
+check_installed || sudo npm install --global yarn
+# alternatively: https://classic.yarnpkg.com/en/docs/install/#debian-stable
 
 # nvm 🚛
-if [ PACKAGE=nvm check_installed -e 1 ]; then
-	wget -qO- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION:-nvm_version}/install.sh" | bash
-fi
+PACKAGE=nvm
+check_installed || {
+	wget -qO- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION:-nvm_version}/install.sh" | bash;
+}
+
 
 # python 🐍
 # TODO

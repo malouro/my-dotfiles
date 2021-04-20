@@ -63,7 +63,6 @@ alias l='ls -CF'
 export PATH="$HOME/.bin:/usr/local/bin/git:/usr/local/bin:/usr/bin\
 :$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin\
 :$HOME/.npm/bin:$HOME/.config/npm/global/node_modules/.bin\
-:$HOME/.kenv/bin\
 :$PATH
 "
 
