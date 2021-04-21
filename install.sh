@@ -40,6 +40,7 @@ profiles=(
 	bash
 	bin
 	git
+	npm
 	node-scripts
 	vim
 	vscode
