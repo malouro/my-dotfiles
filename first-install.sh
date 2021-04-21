@@ -34,13 +34,13 @@ case "${uname_out}" in
 esac
 
 if [ "$OS" == "UNKNOWN" ]; then
-	echo "Error: System \"${uname_out}\" is not supported or recognized."
+	echo "ERROR: System \"${uname_out}\" is not supported or recognized."
 	exit 2
 elif [[ "$OS" == "Cygwin" || "$OS" == "MinGw" ]]; then
-	echo "Windows is not supported yet. :("
+	echo "ERROR: Windows is not supported yet. :("
 	exit 1
 fi
-echo "Detected system type: ${OS} (${uname_out})"
+echo "INFO: Detected system type: ${OS} (${uname_out})"
 
 
 
@@ -99,7 +99,7 @@ elif [ "$OS" == "Mac" ]; then
 fi
 
 # node 📦
-PACKAGE=nodef
+PACKAGE=node
 if [ "$OS" == "Linux" ]; then
 	check_installed || {
 		curl -fsSL "https://deb.nodesource.com/setup_${NODE_VERSION:-"$node_version_short"}.x" | sudo -E bash - && apt install -y nodejs;

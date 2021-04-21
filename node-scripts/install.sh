@@ -1,4 +1,6 @@
-#!/usr/bin sh
+#!/usr/bin bash
+
+set -e
 
 NODE_SHEBANG="#!/usr/bin/env node"
 NODE_SCRIPTS=$(cat "$HERE_PROFILE/script-list")
@@ -6,7 +8,7 @@ NODE_SCRIPTS=$(cat "$HERE_PROFILE/script-list")
 echo "List of node-scripts:
 ------
 ${NODE_SCRIPTS}
-------"
+------";
 
 # Check if we need to build the node-scripts again...
 if [ "$RUN_BUILD" == "true" ]; then
@@ -15,7 +17,7 @@ if [ "$RUN_BUILD" == "true" ]; then
 
 	cd "$HERE_PROFILE" && yarn install && yarn build
 else
-	echo 'Skipping node-scripts build. 🏃'
+	echo 'Skipping node-scripts build... 🏃'
 fi
 
 # Make built scripts executable
@@ -34,9 +36,7 @@ for node_script in $NODE_SCRIPTS; do
 		needs_shebang="true"
 	}
 
-	if [ "${needs_shebang}" == "false" ]; then
-		continue
-	else
+	if [ "${needs_shebang}" == "true" ]; then
 		add_the_bang=`echo "$NODE_SHEBANG"; cat $file`
 		echo "$add_the_bang" > "$file"
 	fi
