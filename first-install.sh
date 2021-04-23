@@ -34,46 +34,14 @@ case "${uname_out}" in
 esac
 
 if [ "$OS" == "UNKNOWN" ]; then
-	echo "ERROR: System \"${uname_out}\" is not supported or recognized."
+	printf "\e[31mERROR:\e[0m System \"${uname_out}\" is not supported or recognized."
 	exit 2
 elif [[ "$OS" == "Cygwin" || "$OS" == "MinGw" ]]; then
-	echo "ERROR: Windows is not supported yet. :("
+	printf "\e[31mERROR:\e[0m Windows is not supported yet. :("
 	exit 1
 fi
-echo "INFO: Detected system type: ${OS} (${uname_out})"
-
-
-
-# -------------------------------
-# INSTALL SCRIPT DEPS
-# -------------------------------
-# Utility function
-check_installed () {
-	if [ -z "$PACKAGE" ]; then
-		return 0
-	fi
-
-	if [ "$PACKAGE" == "nvm" ]; then
-		echo "WARNING: nvm installation is not working currently."
-		echo "Run this command manually to install:"
-		echo "wget -qO- \"https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION:-nvm_version}/install.sh\" | bash"
-		return 0
-	fi
-
-	if ! type "$PACKAGE" > /dev/null; then
-		echo "\"${PACKAGE}\" not installed; installing..."
-		return 1
-	fi
-
-	echo "\"${PACKAGE}\" already installed; skipping."
-	return 0
-}
-
-if [ "$OS" == "Mac" ]; then
-	PACKAGE=wget check_installed || brew upgrade wget || brew install wget
-	# Just checks for "gls", though coreutils installs more than that
-	PACKAGE=gls check_installed || brew upgrade coreutils || brew install coreutils
-fi
+printf "\e[36mINFO:\e[0m Detected system type: ${OS} (${uname_out})\n\n"
+echo "🔎 Checking system for what to install..."
 
 
 # -------------------------------
@@ -88,6 +56,40 @@ nvm_version="0.38.0"
 
 
 # -------------------------------
+# INSTALL SCRIPT DEPS
+# -------------------------------
+# Utility function
+check_installed () {
+	if [ -z "$PACKAGE" ]; then
+		return 0
+	fi
+
+	if [ "$PACKAGE" == "nvm" ]; then
+		printf "__________________________________________________________________________________________\n"
+		printf "\e[33mWARNING:\e[0m \"nvm\" detection is not working currently.\n"
+		printf "If you need to, run this command manually to install \"nvm\" yourself:\n\n"
+		printf "  wget -qO- \"https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION:-"$nvm_version"}/install.sh | bash\"\n\n"
+		echo "__________________________________________________________________________________________"
+		return 0
+	fi
+
+	if ! type "$PACKAGE" > /dev/null; then
+		echo "📦 \"${PACKAGE}\" not installed; installing..."
+		return 1
+	fi
+
+	echo "✅ \"${PACKAGE}\" already installed; skipping."
+	return 0
+}
+
+if [ "$OS" == "Mac" ]; then
+	PACKAGE=wget check_installed || brew upgrade wget || brew install wget
+	# Just checks for "gls", though coreutils installs more than that
+	PACKAGE=gls check_installed || brew upgrade coreutils || brew install coreutils
+fi
+
+
+# -------------------------------
 # INSTALL
 # -------------------------------
 
@@ -98,6 +100,15 @@ if [ "$OS" == "Linux" ]; then
 elif [ "$OS" == "Mac" ]; then
 	PACKAGE=git; check_installed || brew install git
 	PACKAGE=zsh; check_installed || brew install zsh
+fi
+
+# oh-my-zsh 😱
+if [[ "$OS" == "Linux" || "$OS" == "Mac" ]]; then
+	if [ -d "$(/bin/zsh -c 'echo $ZSH')" ]; then
+		echo "✅ \"oh-my-zsh\" already installed; skipping."
+	else
+		sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+	fi
 fi
 
 # node 📦
@@ -127,7 +138,6 @@ check_installed || {
 	# TODO: get this working somehow??
 	# wget -qO- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION:-nvm_version}/install.sh" | bash;
 }
-
 
 # python 🐍
 # TODO

@@ -27,10 +27,12 @@ RUN_BUILD=true ./install.sh $HOME
 
 Alternatively, just `cd` into `node-scripts` and run `yarn install && yarn build`.
 
-### Updating submodules
+### Updating
+
+> WIP
 
 ```
-./update-modules.sh
+./update.sh
 ```
 
 ---
