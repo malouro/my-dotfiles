@@ -1,3 +1,13 @@
+#!/bin/bash
+
+### Aliases
+
+# Human readable, indicators and no group names for `ls`
+alias ls='ls -GFh'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
 ### PATH variable
 
 # Setting PATH for Python 3.6 - The original version is saved in .bash_profile.pysave

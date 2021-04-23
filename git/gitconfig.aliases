@@ -8,5 +8,5 @@
 	nuke = !git reset --hard HEAD && git clean -d -f
 	new-branch = "!f() { git checkout -b $1; }; f"
 	nb = !git new-branch
-	prune = !git branch --merged | egrep -v \\"(^\\*|master|develop)\\" | xargs git branch -d
+	sweep = fetch -p
 	df = difftool -y

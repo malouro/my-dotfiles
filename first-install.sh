@@ -69,8 +69,10 @@ check_installed () {
 	return 0
 }
 
-if [ "$OS" == "Mac" ] && [ -z "$(check_installed)" ]; then
+if [ "$OS" == "Mac" ]; then
 	PACKAGE=wget check_installed || brew upgrade wget || brew install wget
+	# Just checks for "gls", though coreutils installs more than that
+	PACKAGE=gls check_installed || brew upgrade coreutils || brew install coreutils
 fi
 
 

@@ -2,6 +2,7 @@
 
 ### Custom bash profile
 ### Terminal colors & style
+
 # Colors
 BLACK='\[\e[0;30m\]'
 RED='\[\e[1;31m\]'
@@ -40,11 +41,3 @@ get_host_name() {
 
 # Style 1 -- Simple + GIT branch + arrow
 export PS1="${EM_DANGO}${BLUE}\u\$(get_host_name) ${DARK_BROWN}\W${GREEN}\$(parse_git_branch) ${NONE}\n"
-
-
-### Aliases
-# Human readable, indicators and no group names for `ls`
-alias ls='ls -GFh'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
