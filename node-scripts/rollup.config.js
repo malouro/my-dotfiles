@@ -15,7 +15,7 @@ const plugins = [
 		extensions: ['.js', '.ts', '.json'],
 		preferBuiltins: true
 	}),
-	commonjs({ requireReturnsDefault: 'namespace', esmExternals: true }),
+	commonjs({ requireReturnsDefault: 'auto' }),
 	babel({ exclude: 'node_modules/*', babelHelpers: 'bundled' }),
 	terser(),
 	json()

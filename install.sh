@@ -13,7 +13,7 @@ install_profile() {
 	if [ -f "$install_location" ]; then
 		. "$install_location"
 	else
-		echo "WARNING: Install script for ($profile) not found; skipping"
+		printf "\e[33mWARNING:\e[0m Install script for ($profile) not found; skipping\n"
 	fi
 }
 
