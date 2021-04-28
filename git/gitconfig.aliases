@@ -9,5 +9,5 @@
 	new-branch = "!f() { git checkout -b $1; }; f"
 	nb = !git new-branch
 	clean-fetch = fetch -p
-	sweep = !git branch --merged | egrep -v \"(^\\*|master|develop)\" | xargs git branch -d
+	sweep = !git branch --merged | egrep -v \"(^\\*|master|develop|main)\" | xargs git branch -d
 	df = difftool -y
