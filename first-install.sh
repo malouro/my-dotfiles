@@ -7,7 +7,7 @@
 # [ENV_FLAGS] options:
 # -------------------------------
 # - NODE_VERSION:     version of `node` to install;
-#                     shorthand format (ie: 14.6.0 -> "14")
+#                     shorthand format (ie: "14" -> 14.6.0 (latest 14))
 # - NVM_VERSION:      version of `nvm` to install.
 # -------------------------------
 # List of stuff to install:
