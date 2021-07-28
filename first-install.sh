@@ -68,7 +68,7 @@ check_installed () {
 		printf "__________________________________________________________________________________________\n"
 		printf "\e[33mWARNING:\e[0m \"nvm\" detection is not working currently.\n"
 		printf "If you need to, run this command manually to install \"nvm\" yourself:\n\n"
-		printf "  wget -qO- \"https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION:-"$nvm_version"}/install.sh | bash\"\n\n"
+		printf "  wget -qO- \"https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION:-"$nvm_version"}/install.sh\" | bash\\n\n"
 		echo "__________________________________________________________________________________________"
 		return 0
 	fi
