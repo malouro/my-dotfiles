@@ -4,6 +4,7 @@ thumbs.db
 
 # Hide work related stuff
 *.icims
+**/icims/**
 
 # Nodey, Yarny stuff
 **/node_modules/**
