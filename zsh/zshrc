@@ -58,6 +58,7 @@ autoload -U add-zsh-hook
 alias ls='ls -GFh'
 alias ll='ls -alF'
 alias la='ls -A'
+# NOTE: This requires coreutils installed for Mac
 alias l='gls --color -ahF --group-directories-first'
 
 
@@ -72,6 +73,9 @@ export PATH="$HOME/.bin:/usr/local/bin/git:/usr/local/bin:/usr/bin\
 :$PATH
 "
 
+# Brew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # VSCode
 MAC_VSCODE_LOCATION="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 if [ -f "${MAC_VSCODE_LOCATION}/code" ]; then
@@ -81,6 +85,9 @@ fi
 # Node
 # (npm, yarn, nvm, etc.)
 # ==================================
+
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # Loads nvm only on first invocation of Node/NPM like command usages
 # Greatly increases shell start up time
 nvm() {
