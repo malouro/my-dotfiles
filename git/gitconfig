@@ -8,8 +8,12 @@
 [include]
 	path = ~/.gitconfig.aliases
 	path = ~/.gitconfig.user
+[pull]
+	ff = only
+
 # Include iCIMS Configurations:
 [includeIf "gitdir:~/Projects/Work/"]
 	path = ~/.gitconfig.user.icims
 [includeIf "gitdir:~/Projects/Test/"]
 	path = ~/.gitconfig.user.icims
+
