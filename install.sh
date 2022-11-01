@@ -44,6 +44,7 @@ profiles=(
 	node-scripts
 	vim
 	vscode
+	yarn
 	zsh
 )
 
