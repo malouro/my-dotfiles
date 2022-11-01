@@ -1,3 +1,6 @@
 [user]
 	name = Mike A. Louro
 	email = mike.a.louro@gmail.com
+
+[core]
+	sshCommand = "ssh -i ~/.ssh/id_rsa_github"

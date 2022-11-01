@@ -1,3 +1,6 @@
 [user]
 	name = Michael Louro
 	email = Michael.Louro@icims.com
+
+[core]
+	sshCommand = "ssh -i ~/.ssh/id_rsa_icims"
