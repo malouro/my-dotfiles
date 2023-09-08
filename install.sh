@@ -42,6 +42,7 @@ profiles=(
 	git
 	npm
 	node-scripts
+	ssh
 	vim
 	vscode
 	yarn

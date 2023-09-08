@@ -1,6 +1,6 @@
 [core]
 	autocrlf = input
-	ignorecase = false
+	ignorecase = true
 [diff]
 	tool = default-difftool
 [difftool "default-difftool"]
@@ -16,4 +16,5 @@
 	path = ~/.gitconfig.user.icims
 [includeIf "gitdir:~/Projects/Test/"]
 	path = ~/.gitconfig.user.icims
-
+[includeIf "gitdir:~/Projects/Training/"]
+	path = ~/.gitconfig.user.icims
