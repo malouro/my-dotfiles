@@ -1,10 +1,13 @@
 [core]
 	autocrlf = input
 	ignorecase = true
-[diff]
-	tool = default-difftool
-[difftool "default-difftool"]
-	cmd = code --wait --diff $LOCAL $REMOTE
+# trying out a new diff tool...
+	pager = delta --line-numbers --dark
+# Using VS Code as a difftool:
+# [diff]
+# 	tool = default-difftool
+# [difftool "default-difftool"]
+# 	cmd = code --wait --diff $LOCAL $REMOTE
 [include]
 	path = ~/.gitconfig.aliases
 	path = ~/.gitconfig.user
