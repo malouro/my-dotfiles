@@ -7,5 +7,5 @@ if [ -d "${TEST_DIR}" ]; then
 	rm -rf ${TEST_DIR}
 fi
 
-nox create-react-app@3.2 --scripts-version file:${REACT_SCRIPTS_DIR} ${TEST_DIR};
+npx create-react-app@3.2 --scripts-version file:${REACT_SCRIPTS_DIR} ${TEST_DIR};
 code ${TEST_DIR};
