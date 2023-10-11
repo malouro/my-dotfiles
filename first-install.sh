@@ -95,11 +95,13 @@ fi
 
 # git & zsh 🐚
 if [ "$OS" == "Linux" ]; then
-	PACKAGE=git; check_installed || apt install git
-	PACKAGE=zsh; check_installed || apt install zsh
+	PACKAGE=git;   check_installed || apt install git
+	PACKAGE=delta; check_installed || echo 'Install delta diff tool: https://dandavison.github.io/delta/installation.html'
+	PACKAGE=zsh;   check_installed || apt install zsh
 elif [ "$OS" == "Mac" ]; then
-	PACKAGE=git; check_installed || brew install git
-	PACKAGE=zsh; check_installed || brew install zsh
+	PACKAGE=git;   check_installed || brew install git
+	PACKAGE=delta; check_installed || brew install git-delta
+	PACKAGE=zsh;   check_installed || brew install zsh
 fi
 
 # oh-my-zsh 😱
