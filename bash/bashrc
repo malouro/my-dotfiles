@@ -25,5 +25,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 # This is slow-running, but uncomment if you want
 # eval "$(pyenv init -)"
 
+source ~/.nvm/nvm.sh
+
 # Source profile
 . ~/.bash_profile
