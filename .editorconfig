@@ -3,8 +3,6 @@
 root = true
 
 [*]
-# Yes that's right, tabs
-# This is a hill I will die on. :)
 indent_style = tab
 indent_size = 2
 end_of_line = lf
