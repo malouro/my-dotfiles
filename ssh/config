@@ -1,9 +1,12 @@
 Host github
-  HostName github.com
+  AddKeysToAgent yes
+  UseKeychain yes
   User git
-  IdentityFile ~/ssh/id_rsa_github
+  HostName github.com
+  IdentityFile ~/.ssh/id_rsa_ghub
 
 Host icims
+  AddKeysToAgent yes
+  UseKeychain yes
   HostName bb.icimslabs.net
-  User git
-  IdentityFile ~/ssh/id_rsa_icims
+  IdentityFile ~/.ssh/id_rsa_icims
