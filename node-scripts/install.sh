@@ -15,7 +15,7 @@ if [ "$RUN_BUILD" == "true" ]; then
 	echo 'Running build for node-scripts...'
 	echo 'This might take a while. ☕️'
 
-	cd "$HERE_PROFILE" && yarn install && yarn build
+	cd "$HERE_PROFILE" && npm install && npm run build
 else
 	echo 'Skipping node-scripts build... 🏃'
 fi
