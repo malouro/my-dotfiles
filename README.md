@@ -25,11 +25,9 @@ The contents of `./node-scripts/` needs to be rebuilt if they're ever changed. B
 RUN_BUILD=true ./install.sh $HOME
 ```
 
-Alternatively, just `cd` into `node-scripts` and run `yarn install && yarn build`.
+Alternatively, just `cd` into `node-scripts` and run `npm install && npm run build`.
 
 ### Updating
-
-> WIP
 
 ```
 ./update.sh
