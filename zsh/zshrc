@@ -1,6 +1,7 @@
 # zsh & oh-my-zsh
 # ====================================================================
 # Path to your oh-my-zsh installation.
+zstyle ':omz:lib:theme-and-appearance' gnu-ls yes
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
@@ -55,11 +56,10 @@ autoload -U add-zsh-hook
 # Aliases
 # ====================================================================
 
-alias ls='ls -GFh'
-alias ll='ls -alF'
-alias la='ls -A'
-# NOTE: This requires coreutils installed for Mac
-alias l='gls --color -ahF --group-directories-first'
+alias ls='ls --color -GFh'
+alias ll='ls --color -alF'
+alias la='ls --color -A'
+alias l=' ls --color -ahFG --group-directories-first'
 
 
 # Dev environment setups
