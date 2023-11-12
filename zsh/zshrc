@@ -30,7 +30,16 @@ ZSH_THEME_RANDOM_CANDIDATES=(
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git npm yarn docker zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(
+	git
+	git-prompt
+	npm
+	yarn
+	docker
+	docker-compose
+	zsh-autosuggestions
+	zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -61,6 +70,9 @@ alias ll='ls --color -alF'
 alias la='ls --color -A'
 alias l=' ls --color -ahFG --group-directories-first'
 
+# For 'git' plugin: replace "gst" with just "gs"
+alias gs='git status'
+unalias gst
 
 # Dev environment setups
 # ====================================================================
