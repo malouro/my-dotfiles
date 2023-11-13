@@ -4,8 +4,8 @@ thumbs.db
 
 # Hide work related stuff
 # --- ALLOWING IN ICIMS ENV ---
-# *.icims
-# **/icims/**
+*.icims
+**/icims/**
 
 # Nodey, Yarny stuff
 **/node_modules/**
