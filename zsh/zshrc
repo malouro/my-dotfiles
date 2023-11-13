@@ -65,10 +65,21 @@ autoload -U add-zsh-hook
 # Aliases
 # ====================================================================
 
-alias ls='ls --color -GFh'
-alias ll='ls --color -alF'
-alias la='ls --color -A'
-alias l=' ls --color -ahFG --group-directories-first'
+# For systems that don't have gls, we fallback to ls
+_ls_cmd() {
+	local gls_flags='--group-directories-first'
+	if which gls &> /dev/null; then
+		gls "$@"
+	else
+		args=${$@//$gls_flags/}
+		ls $args
+	fi
+}
+
+alias ls='_ls_cmd --color -GFh'
+alias ll='_ls_cmd --color -alF'
+alias la='_ls_cmd --color -A'
+alias l=' _ls_cmd --color -ahFG --group-directories-first'
 
 # For 'git' plugin: replace "gst" with just "gs"
 alias gs='git status'
