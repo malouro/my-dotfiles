@@ -71,8 +71,9 @@ _ls_cmd() {
 	if which gls &> /dev/null; then
 		gls "$@"
 	else
-		args=${$@//$gls_flags/}
-		ls $args
+		args="$@"
+		args=${args//${gls_flags}/}
+		sh -c "ls $args"
 	fi
 }
 
