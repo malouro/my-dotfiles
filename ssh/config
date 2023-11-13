@@ -3,7 +3,7 @@ Host github
   UseKeychain yes
   User git
   HostName github.com
-  IdentityFile ~/.ssh/id_rsa_ghub
+  IdentityFile ~/.ssh/id_rsa_github
 
 Host icims
   AddKeysToAgent yes
