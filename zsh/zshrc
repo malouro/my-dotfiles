@@ -76,8 +76,6 @@ autoload -U add-zsh-hook
 # Aliases
 # ====================================================================
 
-do-ls() { emulate -L zsh; ls; }
-
 # For systems that don't have gls, we fallback to ls
 _ls_cmd() {
 	local gls_flags=(
