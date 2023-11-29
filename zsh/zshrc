@@ -10,6 +10,11 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="zshiggy"
 
+# zshiggy theme vars:
+
+# ZSHIGGY_GIT_SYMBOL="git"
+# ZSHIGGY_SYMBOL=""
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
@@ -67,12 +72,17 @@ autoload -U add-zsh-hook
 
 # For systems that don't have gls, we fallback to ls
 _ls_cmd() {
-	local gls_flags='--group-directories-first'
+	local gls_flags=(
+		--group-directories-first
+	)
 	if which gls &> /dev/null; then
 		gls "$@"
 	else
+		# Remove any "gls" flags from command
 		args="$@"
-		args=${args//${gls_flags}/}
+		for flag in "${gls_flags[@]}"; do
+			args=${args//${flag}/}
+		done
 		sh -c "ls $args"
 	fi
 }
@@ -85,6 +95,8 @@ alias l=' _ls_cmd --color -ahFG --group-directories-first'
 # For 'git' plugin: replace "gst" with just "gs"
 alias gs='git status'
 unalias gst
+
+do-ls() { emulate -L zsh; l; }
 
 # Dev environment setups
 # ====================================================================
@@ -112,54 +124,32 @@ fi
 # (npm, yarn, nvm, etc.)
 # ==================================
 
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Loads nvm only on first invocation of Node/NPM like command usages
-# Greatly increases shell start up time
-nvm() {
-	unset -f nvm
-	export NVM_DIR="$HOME/.nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-	nvm "$@"
-}
-
-node() {
-	unset -f node
-	export NVM_DIR="$HOME/.nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-	node "$@"
-}
-
-npm() {
-	unset -f npm
-	export NVM_DIR="$HOME/.nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-	npm "$@"
-}
-
-yarn() {
-	unset -f yarn
-	export NVM_DIR="$HOME/.nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-	yarn "$@"
-}
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 # Set to `true` to automatically invoke "nvm use" when opening directory with .nvmrc
+# (only when current Node version is not matching with nvmrc contents)
 AUTO_USE_NVM="false"
 
 # If .nvmrc exists; warn user or auto-use `nvm use`
 check_nvm() {
 	if [[ -f "$PWD/.nvmrc" && -r "$PWD/.nvmrc" ]]; then
-		if [ "$AUTO_USE_NVM" = "true" ]; then
-			nvm use
-		else
-			echo ".nvmrc file detected in directory. Use \"nvm use\" to activate & use the expected node version for this project."
+		local _nvmrc_contents="$(cat ./.nvmrc | tr -d " \t\n\r")"
+
+		if [ "$(nvm version $_nvmrc_contents)" != "$(node -v)" ]; then
+			if [ "$AUTO_USE_NVM" = "true" ]; then
+				nvm use
+			else
+				echo "$fg_bold[red].nvmrc file detected in the directory. Use \"nvm use\" to activate & use the expected node version for this project.$reset_color"
+			fi
 		fi
 	fi
 }
 
 # Add check_nvm hook for change in directory
 add-zsh-hook chpwd check_nvm
+add-zsh-hook chpwd do-ls
 check_nvm
 
 
