@@ -70,8 +70,6 @@ autoload -U add-zsh-hook
 # Aliases
 # ====================================================================
 
-do-ls() { emulate -L zsh; ls; }
-
 # For systems that don't have gls, we fallback to ls
 _ls_cmd() {
 	local gls_flags=(
@@ -97,6 +95,8 @@ alias l=' _ls_cmd --color -ahFG --group-directories-first'
 # For 'git' plugin: replace "gst" with just "gs"
 alias gs='git status'
 unalias gst
+
+do-ls() { emulate -L zsh; l; }
 
 # Dev environment setups
 # ====================================================================
@@ -135,13 +135,13 @@ AUTO_USE_NVM="false"
 # If .nvmrc exists; warn user or auto-use `nvm use`
 check_nvm() {
 	if [[ -f "$PWD/.nvmrc" && -r "$PWD/.nvmrc" ]]; then
-		local _nvmrc_contents="$(cat ./.nvmrc)"
+		local _nvmrc_contents="$(cat ./.nvmrc | tr -d " \t\n\r")"
 
 		if [ "$(nvm version $_nvmrc_contents)" != "$(node -v)" ]; then
 			if [ "$AUTO_USE_NVM" = "true" ]; then
 				nvm use
 			else
-				echo ".nvmrc file detected in directory. Use \"nvm use\" to activate & use the expected node version for this project."
+				echo "$fg_bold[red].nvmrc file detected in the directory. Use \"nvm use\" to activate & use the expected node version for this project.$reset_color"
 			fi
 		fi
 	fi
