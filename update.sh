@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 HERE="$PWD"
 git submodule update --remote --merge
