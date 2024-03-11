@@ -39,6 +39,8 @@ Alternatively, just `cd` into `node-scripts` and run `npm install && npm run bui
 
 - [ ] Support multiple, specific profile installations
 	- eg: `install.sh $HOME zsh git bash`
+- [ ] Create `uninstall` script
+	- In case we want to remove extraneous symlinks from a previous installation or content from a separate dotfiles branch.
 - [ ] Handle pre-existing configs
 	- Offer a solution to (dangerously) remove existing configs with `$HOME`
 		- Needed in case the paths go stale (ie: moving the `my-dotfiles` repo elsewhere, breaking the already existing symlinks)
