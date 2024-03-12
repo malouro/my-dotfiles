@@ -29,3 +29,4 @@ source ~/.nvm/nvm.sh
 
 # Source profile
 . ~/.bash_profile
+. "$HOME/.cargo/env"

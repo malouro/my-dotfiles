@@ -48,6 +48,8 @@ Alternatively, just `cd` into `node-scripts` and run `npm install && npm run bui
 - [ ] Fresh/first install script
 	- This would actually install the needed programs/executables
 	- Installs git, zsh, node, pyenv, etc.
+	- git plugins
+		 - git difftools (delta)
 - [ ] Better way to determine what system is being set up
 	- What is the OS? Is it a work machine? Is it a personal machine? etc.
 		- OS is handled in `first-install.sh` - could be leveraged elsewhere
