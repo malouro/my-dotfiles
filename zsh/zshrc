@@ -17,7 +17,7 @@ ZSH_THEME="zshiggy"
 
 # zshiggy theme vars:
 ZSHIGGY_GIT_SYMBOL="git"
-ZSHIGGY_SYMBOL="⚡"
+# ZSHIGGY_SYMBOL="$"
 ZSHIGGY_NODE_ENABLED=false
 
 # Set list of themes to pick from when loading at random
@@ -166,3 +166,9 @@ check_nvm
 # Initializes pyenv for shell on startup
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+
+
+# Rust
+# ==================================
+. "$HOME/.cargo/env"
+

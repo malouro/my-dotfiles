@@ -1,5 +1,6 @@
 Host github.com
   AddKeysToAgent yes
+  IgnoreUnknown UseKeychain
   UseKeychain yes
   User git
   HostName github.com
@@ -7,6 +8,7 @@ Host github.com
 
 Host bb.icimslabs.net
   AddKeysToAgent yes
+  IgnoreUnknown UseKeychain
   UseKeychain yes
   HostName bb.icimslabs.net
   IdentityFile ~/.ssh/id_rsa_icims

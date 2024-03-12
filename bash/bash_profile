@@ -47,3 +47,4 @@ get_host_name() {
 
 # Style 1 -- Simple + GIT branch + arrow
 export PS1="${EM_DANGO}${BLUE}\u\$(get_host_name) ${DARK_BROWN}\W${GREEN}\$(parse_git_branch) ${NONE}\n"
+. "$HOME/.cargo/env"
