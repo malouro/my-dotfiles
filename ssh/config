@@ -5,6 +5,7 @@ Host github.com
   User git
   HostName github.com
   IdentityFile ~/.ssh/id_rsa_github
+  StrictHostKeyChecking accept-new
 
 Host bb.icimslabs.net
   AddKeysToAgent yes
