@@ -1,5 +1,7 @@
 # Dependencies, themes, etc.
-import = []
+import = [
+	"~/.config/alacritty/themes/tokyo-storm.toml"
+]
 
 [font]
 size = 24
