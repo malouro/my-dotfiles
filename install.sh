@@ -37,7 +37,6 @@ cd "$HERE"
 
 # Add new profiles/dotfile directorys in here:
 profiles=(
-	alacritty
 	bash
 	bin
 	git
