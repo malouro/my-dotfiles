@@ -1,0 +1,15 @@
+# Deps & themes?
+import = []
+
+[font]
+size = 24
+
+[font.normal]
+family = "Fantasque Sans Mono"
+
+[window]
+# decorations = "none"
+
+[window.padding]
+x = 8
+y = 0
