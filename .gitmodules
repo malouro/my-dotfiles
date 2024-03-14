@@ -13,3 +13,6 @@
 [submodule "zsh/themes/zshiggy"]
 	path = zsh/themes/zshiggy
 	url = https://github.com/malouro/zshiggy.git
+[submodule "alacritty/themes"]
+	path = alacritty/themes
+	url = https://github.com/alacritty/alacritty-theme.git

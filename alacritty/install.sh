@@ -3,8 +3,7 @@
 "$SL" "$HERE_PROFILE/alacritty.toml" "$OUT/.alacritty.toml"
 
 if [ -d "$OUT/.config" ]; then
-for file in "$HERE_PROFILE/themes/"*; do
-	filename=$(basename ${file});
-	"$SL" "$HERE_PROFILE/themes/$filename" "$OUT/.config/alacritty/$filename"
-done
+	"$SL" "$HERE_PROFILE/themes/themes" "$OUT/.config/alacritty/themes"
+else
+	echo '"~/.config" was not found. Not installing Alacritty themes.';
 fi
