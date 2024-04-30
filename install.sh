@@ -43,6 +43,7 @@ profiles=(
 	git
 	node-scripts
 	ssh
+	tmux
 	vim
 	vscode
 	yarn
