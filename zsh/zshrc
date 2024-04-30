@@ -16,6 +16,7 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="zshiggy"
 
 # zshiggy theme vars:
+ZSHIGGY_SYMBOL="↯"
 ZSHIGGY_GIT_SYMBOL="git"
 # ZSHIGGY_SYMBOL="$"
 ZSHIGGY_NODE_ENABLED=false
