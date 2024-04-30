@@ -8,12 +8,22 @@ yarn_profiles=(
 )
 
 profile_match="false"
+profile_match_npm="false"
 
-for profile in "${npm_profiles[@]}"; do
+for profile in "${yarn_profiles[@]}"; do
 	if [ -f "$HERE_PROFILE/yarnrc.$profile" ]; then
 		profile_match="true"
 		echo "Using $profile yarn profile..."
 		"$SL" "$HERE_PROFILE/yarnrc.$profile" "$OUT/.yarnrc"
+		break
+	fi
+done
+
+for profile in "${yarn_profiles[@]}"; do
+	if [ -f "$HERE_PROFILE/npmrc.$profile" ]; then
+		profile_match_npm="true"
+		echo "Using $profile npm profile..."
+		"$SL" "$HERE_PROFILE/npmrc.$profile" "$OUT/.npmrc"
 		break
 	fi
 done
