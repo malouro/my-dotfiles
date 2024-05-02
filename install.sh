@@ -71,3 +71,9 @@ else
 
 	echo "Done!"
 fi
+
+# Extra content, not tied to a profile...
+
+# LS_COLORS script for sourcing in shell profiles.
+# @ref: https://github.com/trapd00r/LS_COLORS
+$SL $HERE/lscolors.sh $OUT/.lscolors.sh

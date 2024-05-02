@@ -54,6 +54,8 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+# LS_COLORS
+source $HOME/.lscolors.sh
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"

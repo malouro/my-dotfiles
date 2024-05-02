@@ -1,7 +1,9 @@
 #!/usr/bin/env sh
 
 HERE="$PWD"
-git submodule update --remote --merge
+
+git submodule init # in case submodules aren't cloned yet (ie: fresh dotfiles)
+git submodule update --remote --recursive --merge
 
 cd "$HERE/node-scripts"
 

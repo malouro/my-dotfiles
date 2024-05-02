@@ -4,7 +4,7 @@ import = [
 ]
 
 [font]
-size = 24
+size = 20
 
 [font.normal]
 family = "Fantasque Sans Mono"
