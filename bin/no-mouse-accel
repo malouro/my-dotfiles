@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# NOTE: Newer versions of MacOS have an option to disable "Pointer acceleration" via the Settings UI.
+# This script is probably moot now.
+
 # Usage:
 # no-mouse-accel
 
