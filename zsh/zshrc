@@ -18,7 +18,6 @@ ZSH_THEME="zshiggy"
 # zshiggy theme vars:
 ZSHIGGY_SYMBOL="↯"
 ZSHIGGY_GIT_SYMBOL="git"
-# ZSHIGGY_SYMBOL="$"
 ZSHIGGY_NODE_ENABLED=false
 
 # Set list of themes to pick from when loading at random
