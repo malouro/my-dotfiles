@@ -3,7 +3,8 @@
 # .oh-my-zsh directory location
 OMZ="$OUT/.oh-my-zsh"
 
-if [[ "$(uname -s)" -eq "Linux" ]]; then
+# If in Arch Linux, use the profile
+if [[ -f "/etc/arch-release" ]]; then
 	"$SL" "$HERE_PROFILE/zshrc.arch" "$OUT/.zshrc"
 else
 	"$SL" "$HERE_PROFILE/zshrc" "$OUT/.zshrc"
