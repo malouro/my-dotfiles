@@ -76,6 +76,8 @@ function in {
 	fi
 }
 
+export HYPR="~/.config/hypr"
+
 # Helpful aliases
 alias c='clear' # clear terminal
 alias l='eza -lh --icons=auto' # long list
