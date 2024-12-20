@@ -49,6 +49,7 @@ plugins=(
 	docker
 	docker-compose
 	zsh-autosuggestions
+	zsh-npm-scripts-autocomplete
 	zsh-syntax-highlighting
 )
 

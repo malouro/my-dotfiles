@@ -12,6 +12,7 @@ fi
 
 "$SL" "$HERE_PROFILE/zsh-autosuggestions" "$OMZ/custom/plugins/zsh-autosuggestions"
 "$SL" "$HERE_PROFILE/zsh-completions" "$OMZ/custom/plugins/zsh-completions"
+"$SL" "$HERE_PROFILE/zsh-npm-scripts-autocomplete" "$OMZ/custom/plugins/zsh-npm-scripts-autocomplete"
 "$SL" "$HERE_PROFILE/zsh-syntax-highlighting" "$OMZ/custom/plugins/zsh-syntax-highlighting"
 
 # .oh-my-zsh themes

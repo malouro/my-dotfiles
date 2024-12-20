@@ -16,3 +16,6 @@
 [submodule "alacritty/themes"]
 	path = alacritty/themes
 	url = https://github.com/alacritty/alacritty-theme.git
+[submodule "zsh-npm-scripts-autocomplete"]
+	path = zsh/zsh-npm-scripts-autocomplete
+	url = git@github.com:grigorii-zander/zsh-npm-scripts-autocomplete.git
