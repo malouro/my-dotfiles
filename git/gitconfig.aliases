@@ -10,4 +10,5 @@
 	nb = !git new-branch
 	clean-fetch = fetch -p
 	sweep = !git branch --merged | egrep -v \"(^\\*|master|develop|main)\" | xargs git branch -d
+	sweep-remote = "!git branch --merged | grep -v '\\*\\|master\\|develop' | xargs -n 1 git push --delete origin"
 	df = difftool -y
