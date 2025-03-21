@@ -175,5 +175,5 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 
 # Rust
 # ==================================
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
