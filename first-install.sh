@@ -43,14 +43,18 @@ fi
 printf "\e[36mINFO:\e[0m Detected system type: ${OS} (${uname_out})\n\n"
 echo "🔎 Checking system for what to install..."
 
+echo "📦 Installing pre-reqs..."
+sudo apt-get install jq
 
 # -------------------------------
 # CONFIG
 # -------------------------------
+fetched_latest_node_version=$(echo "$(curl --silent https://nodejs.org/dist/index.json)" | jq '.[0].version' | sed 's/\..*//' | awk '{sub(/"v/,x)}2')
 # Version of Node to install (shorthand)
-node_version_short=${NODE_VERSION:-"14"}
+# Override with NODE_VERSION env var
+node_version_short=${NODE_VERSION:-${fetched_latest_node_version}}
 # Longhand version of Node, given the above value
-node_version_long="$(wget -qO- "https://nodejs.org/dist/latest-v${node_version_short}.x/" | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')"
+node_version_long="$(wget -qO- "https://nodejs.org/dist/latest/" | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')"
 # Version of nvm to install
 nvm_version="0.38.0"
 
@@ -74,7 +78,8 @@ check_installed () {
 	fi
 
 	if ! type "$PACKAGE" > /dev/null; then
-		echo "📦 \"${PACKAGE}\" not installed; installing..."
+		echo "\n________________________________________________"
+		echo " 📦 \"${PACKAGE}\" not installed; installing...\n"
 		return 1
 	fi
 
@@ -96,7 +101,7 @@ fi
 # git & zsh 🐚
 if [ "$OS" == "Linux" ]; then
 	PACKAGE=git;   check_installed || apt install git
-	PACKAGE=delta; check_installed || echo 'Install delta diff tool: https://dandavison.github.io/delta/installation.html'
+	# PACKAGE=delta; check_installed || echo 'Install delta diff tool: https://dandavison.github.io/delta/installation.html'
 	PACKAGE=zsh;   check_installed || apt install zsh
 elif [ "$OS" == "Mac" ]; then
 	PACKAGE=git;   check_installed || brew install git
@@ -107,6 +112,7 @@ fi
 # oh-my-zsh 😱
 if [[ "$OS" == "Linux" || "$OS" == "Mac" ]]; then
 	if [ -d "$(/bin/zsh -c 'echo $ZSH')" ]; then
+		# TODO: This method may not be the best to detect oh-my-zsh install
 		echo "✅ \"oh-my-zsh\" already installed; skipping."
 	else
 		sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
@@ -117,11 +123,13 @@ fi
 PACKAGE=node
 if [ "$OS" == "Linux" ]; then
 	check_installed || {
-		curl -fsSL "https://deb.nodesource.com/setup_${NODE_VERSION:-"$node_version_short"}.x" | sudo -E bash - && apt install -y nodejs;
+		curl -fsSL "https://deb.nodesource.com/setup_${node_version_short}.x" -o nodesource_setup.sh
+		sudo -E bash nodesource_setup.sh
+		sudo apt-get install -y nodejs
+		rm nodesource_setup.sh
 	}
 elif [ "$OS" == "Mac" ]; then
 	node_install_url="https://nodejs.org/dist/latest-v${NODE_VERSION:-"$node_version_short"}.x/node-${node_version_long}.pkg"
-
 	check_installed || { curl "${node_install_url}" > "$HOME/Downloads/node-latest.pkg" && installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"; }
 fi
 
