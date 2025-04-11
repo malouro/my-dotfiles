@@ -133,6 +133,8 @@ fi
 # (npm, yarn, nvm, etc.)
 # ==================================
 
+export COREPACK_ENABLE_AUTO_PIN=0
+
 alias n='npm'
 
 export NVM_DIR="$HOME/.nvm"
