@@ -2,6 +2,7 @@
 	alias = !git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | grep -v --color=always ^'alias '
 	cls = log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate
 	bls = branch -a
+	rls = remote -v
 	co = checkout
 	undo = reset HEAD~1 --mixed
 	amend = commit -a --amend
