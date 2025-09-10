@@ -13,6 +13,8 @@
 	path = ~/.gitconfig.user
 [pull]
 	ff = only
+[push]
+	autoSetupRemote = true
 
 # Include iCIMS Configurations:
 [includeIf "gitdir:~/Projects/Work/"]
