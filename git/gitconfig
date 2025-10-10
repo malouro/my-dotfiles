@@ -1,6 +1,6 @@
 [core]
 	autocrlf = input
-	ignorecase = true
+	ignorecase = false
 # trying out a new diff tool...
 	pager = delta --line-numbers --dark
 # Using VS Code as a difftool:
