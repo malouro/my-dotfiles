@@ -220,4 +220,6 @@ export PATH="$JAVA_HOME/bin/java:$PATH"
 export PATH=$PATH:/usr/local/go/bin
 
 
-. "$HOME/.local/bin/env"
+if [ -f "$HOME/.local/bin/env" ]; then
+	source "$HOME/.local/bin/env"
+fi
