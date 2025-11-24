@@ -19,3 +19,6 @@
 [submodule "zsh-npm-scripts-autocomplete"]
 	path = zsh/zsh-npm-scripts-autocomplete
 	url = git@github.com:grigorii-zander/zsh-npm-scripts-autocomplete.git
+[submodule "zsh/themes/powerlevel10k"]
+	path = zsh/themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git

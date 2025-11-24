@@ -16,11 +16,15 @@ fi
 "$SL" "$HERE_PROFILE/zsh-syntax-highlighting" "$OMZ/custom/plugins/zsh-syntax-highlighting"
 
 # .oh-my-zsh themes
-for theme in "$HERE_PROFILE/themes/"*/; do
-	theme_name="$(basename $theme)"
-	theme_path="$theme$theme_name.zsh-theme"
+for theme_path in "$HERE_PROFILE/themes/"*/; do
+	theme_name="$(basename $theme_path)"
 
-	if [ -f "$theme_path" ]; then
-		"$SL" "$theme_path" "$OMZ/themes/$theme_name.zsh-theme"
+	if [ $theme_name == "powerlevel10k" ]; then
+		echo "Found theme: $theme_path --> installing into '$OMZ/themes/$theme_name'"
+		
+		"$SL" "$theme_path" "$OMZ/themes/$theme_name"
+	elif [ -f "$theme_path/$theme_name.zsh-theme" ]; then
+		echo "Found theme: $theme_path/$theme_name.zsh-theme --> installing into '$OMZ/themes/$theme_name.zsh-theme'"
+		"$SL" "$theme_path/$theme_name.zsh-theme" "$OMZ/themes/$theme_name.zsh-theme"
 	fi
 done
