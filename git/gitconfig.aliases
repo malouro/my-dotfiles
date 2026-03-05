@@ -13,3 +13,5 @@
 	sweep = !git branch --merged | egrep -v \"(^\\*|master|develop|main)\" | xargs git branch -d
 	sweep-remote = "!git branch --merged | grep -v '\\*\\|master\\|develop' | xargs -n 1 git push --delete origin"
 	df = difftool -y
+	accept-ours = "!f() { git checkout --ours -- \"${@:-.}\"; git add -u \"${@:-.}\"; }; f"
+	accept-theirs = "!f() { git checkout --theirs -- \"${@:-.}\"; git add -u \"${@:-.}\"; }; f"

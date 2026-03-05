@@ -37,7 +37,6 @@ ZSH_THEME_RANDOM_CANDIDATES=(
 	"robbyrussell"
 	"agnoster"
 	"fwalch"
-	"frontcube"
 	"half-life"
 )
 
@@ -75,9 +74,16 @@ else
 fi
 
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [[ $USING_P9K == "true" ]]; then
+	# Disable oh-my-zsh theme if using powerlevel10k
+	ZSH_THEME=""
 
+	# @powerlevel10k
+	source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+
+	# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+	[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -154,6 +160,48 @@ export PATH="$HOME/.bin:/bin:/sbin:/usr/local/bin/git:/usr/local/bin:/usr/bin\
 :$HOME/.npm/bin:$HOME/.config/npm/global/node_modules/.bin\
 :$PATH
 "
+
+# Jiratui
+
+#compdef jiratui
+_jiratui_completion() {
+    local -a completions
+    local -a completions_with_descriptions
+    local -a response
+    (( ! $+commands )) && return 1
+
+    response=("${(@f)$(env COMP_WORDS="${words[*]}" COMP_CWORD=$((CURRENT-1)) _JIRATUI_COMPLETE=zsh_complete jiratui)}")
+
+    for type key descr in ${response}; do
+        if [[ "$type" == "plain" ]]; then
+            if [[ "$descr" == "_" ]]; then
+                completions+=("$key")
+            else
+                completions_with_descriptions+=("$key":"$descr")
+            fi
+        elif [[ "$type" == "dir" ]]; then
+            _path_files -/
+        elif [[ "$type" == "file" ]]; then
+            _path_files -f
+        fi
+    done
+
+    if [ -n "$completions_with_descriptions" ]; then
+        _describe -V unsorted completions_with_descriptions -U
+    fi
+
+    if [ -n "$completions" ]; then
+        compadd -U -V unsorted -a completions
+    fi
+}
+
+if [[ $zsh_eval_context[-1] == loadautofunc ]]; then
+	# autoload from fpath, call function directly
+	_jiratui_completion "$@"
+else
+	# eval/source/. command, register function for later
+	compdef _jiratui_completion jiratui
+fi
 
 # Brew
 if [ -f "/opt/homebrew/bin/brew" ]; then
