@@ -23,6 +23,7 @@ for theme_path in "$HERE_PROFILE/themes/"*/; do
 		echo "Found theme: $theme_path --> installing into '$OMZ/themes/$theme_name'"
 		
 		"$SL" "$theme_path" "$OMZ/themes/$theme_name"
+		"$SL" "$HERE_PROFILE/p10k.zsh" "$OUT/.p10k.zsh"
 	elif [ -f "$theme_path/$theme_name.zsh-theme" ]; then
 		echo "Found theme: $theme_path/$theme_name.zsh-theme --> installing into '$OMZ/themes/$theme_name.zsh-theme'"
 		"$SL" "$theme_path/$theme_name.zsh-theme" "$OMZ/themes/$theme_name.zsh-theme"
